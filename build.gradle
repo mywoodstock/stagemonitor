@@ -183,7 +183,7 @@ release {
 }
 
 def getProjectsToRelease() {
-	subprojects.findAll { !(it.toString() =~ "benchmark|byte-buddy|grafana-elasticsearch|tracing-zipkin") }
+	subprojects.findAll { !(it.toString() =~ "benchmark|byte-buddy|grafana-elasticsearch") }
 }
 
 test.dependsOn << projectsToRelease*.tasks*.withType(Test).flatten()

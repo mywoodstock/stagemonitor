@@ -68,6 +68,10 @@ public class ReportingSpanEventListener extends StatelessSpanEventListener {
 	}
 
 	private void doReport(SpanContextInformation spanContext, SpanWrapper spanWrapper) {
+		logger.info("SPAN REPORTERS: " + spanReporters);
+		for (SpanReporter x : spanReporters) {
+			logger.info("SPAN REPORTER: " + x.toString());
+		}
 		for (SpanReporter spanReporter : spanReporters) {
 			if (spanReporter.isActive(spanContext)) {
 				try {
