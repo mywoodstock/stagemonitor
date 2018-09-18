@@ -177,7 +177,8 @@ public class SpanWrappingTracer implements Tracer {
 		}
 
 		@Override
-		public SpanWrapper startManual() {
+		@Deprecated
+		public Span startManual() {
 			return startSpanWrapper(delegate.startManual());
 		}
 

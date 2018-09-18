@@ -49,6 +49,7 @@ public class ReportingSpanEventListener extends StatelessSpanEventListener {
 	}
 
 	private Future<?> report(final SpanContextInformation spanContext, final SpanWrapper spanWrapper) {
+		logger.info("SPAN REPORTERS: " + spanReporters);
 		try {
 			if (tracingPlugin.isReportAsync()) {
 				return asyncSpanReporterPool.submit(new Runnable() {

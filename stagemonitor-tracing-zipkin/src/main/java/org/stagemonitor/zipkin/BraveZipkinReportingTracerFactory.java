@@ -16,18 +16,21 @@ import brave.propagation.Propagation;
 import brave.sampler.Sampler;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
-import zipkin.reporter.AsyncReporter;
-import zipkin.reporter.urlconnection.URLConnectionSender;
+import zipkin2.reporter.AsyncReporter;
+import zipkin2.reporter.urlconnection.URLConnectionSender;
 
 public class BraveZipkinReportingTracerFactory extends TracerFactory {
 
 	@Override
 	public Tracer getTracer(StagemonitorPlugin.InitArguments initArguments) {
 		final Tracing braveTracer = Tracing.newBuilder()
+				.traceId128Bit(true)
 				.localServiceName(initArguments.getMeasurementSession().getApplicationName())
-				.reporter(getZipkinReporterBuilder(initArguments).build())
-				.sampler(getSampler())
+				.spanReporter(getZipkinReporterBuilder(initArguments).build())
+				//.sampler(getSampler())
+				.sampler(Sampler.ALWAYS_SAMPLE)
 				.build();
+
 		return BraveTracer.newBuilder(braveTracer)
 				.textMapPropagation(B3HeaderFormat.INSTANCE, Propagation.B3_STRING)
 				.build();
@@ -65,7 +68,7 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 
 	protected AsyncReporter.Builder getZipkinReporterBuilder(StagemonitorPlugin.InitArguments initArguments) {
 		final ZipkinPlugin zipkinPlugin = initArguments.getPlugin(ZipkinPlugin.class);
-		final AsyncReporter.Builder reporterBuilder = AsyncReporter
+		final AsyncReporter.Builder reporterBuilder = AsyncReporter //.create(getSender(zipkinPlugin));
 				.builder(getSender(zipkinPlugin))
 				.messageTimeout(zipkinPlugin.getZipkinFlushInterval(), TimeUnit.MILLISECONDS);
 

@@ -110,8 +110,8 @@ subprojects {
 	test.testLogging.exceptionFormat = 'full'
 
 	compileJava {
-		sourceCompatibility = 1.6
-		targetCompatibility = 1.6
+		sourceCompatibility = 1.8
+		targetCompatibility = 1.8
 		options.debug = true
 		options.debugOptions.debugLevel = "source,lines,vars"
 		options.incremental = true
@@ -183,7 +183,7 @@ release {
 }
 
 def getProjectsToRelease() {
-	subprojects.findAll { !(it.toString() =~ "benchmark|byte-buddy|grafana-elasticsearch|tracing-zipkin") }
+	subprojects.findAll { !(it.toString() =~ "benchmark|byte-buddy|grafana-elasticsearch") }
 }
 
 test.dependsOn << projectsToRelease*.tasks*.withType(Test).flatten()
