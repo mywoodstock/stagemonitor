@@ -2,7 +2,7 @@ package org.stagemonitor.core;
 
 import com.codahale.metrics.Clock;
 import com.codahale.metrics.Gauge;
-import com.codahale.metrics.JmxReporter;
+//import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.graphite.Graphite;
 import com.codahale.metrics.graphite.GraphiteReporter;
@@ -31,7 +31,7 @@ import org.stagemonitor.util.StringUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+//import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.URL;
@@ -509,11 +509,11 @@ public class CorePlugin extends StagemonitorPlugin {
 		reportToInfluxDb(metric2Registry, reportingIntervalInfluxDb.getValue(), measurementSession);
 		reportToConsole(metric2Registry, getConsoleReportingInterval(), allFilters);
 
-		if (configuration.getConfig(CorePlugin.class).isReportToJMX()) {
+		//if (configuration.getConfig(CorePlugin.class).isReportToJMX()) {
 			// Because JMX reporter is on registration and not periodic only the
 			// regex filter is applicable here (not filtering metrics by count)
-			reportToJMX(legacyMetricRegistry);
-		}
+			//reportToJMX(legacyMetricRegistry);
+		//}
 	}
 
 
@@ -565,11 +565,11 @@ public class CorePlugin extends StagemonitorPlugin {
 		}
 	}
 
-	private void reportToJMX(MetricRegistry metricRegistry) {
-		final JmxReporter reporter = JmxReporter.forRegistry(metricRegistry).build();
-		reporter.start();
-		reporters.add(reporter);
-	}
+	//private void reportToJMX(MetricRegistry metricRegistry) {
+	//	final JmxReporter reporter = JmxReporter.forRegistry(metricRegistry).build();
+	//	reporter.start();
+	//	reporters.add(reporter);
+	//}
 
 	@Override
 	public void onShutDown() {

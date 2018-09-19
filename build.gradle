@@ -50,10 +50,10 @@ if (!System.getProperty("java.version").startsWith("1.6.")) {
 }
 
 ext {
-	metricsVersion = '3.2.4'
+	metricsVersion = '4.0.3'
 	slf4jVersion = '1.7.25'
 	jacksonVersion = '2.9.6'
-	esVersion = '6.2.4'
+	esVersion = '6.4.0'
 	byteBuddyVersion = '1.8.11'
 	opentracingVersion = '0.31.0'
 	jaegerVersion = '0.31.0'

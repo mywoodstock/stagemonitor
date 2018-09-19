@@ -173,13 +173,13 @@ public class SpanWrappingTracer implements Tracer {
 
 		@Override
 		public Scope startActive(boolean finishSpanOnClose) {
-			return scopeManager().activate(startManual(), finishSpanOnClose);
+			logger.info("STARTING ACTIVE...");
+			return scopeManager().activate(startManual().getDelegate(), finishSpanOnClose);
 		}
 
 		@Override
-		@Deprecated
-		public Span startManual() {
-			return startSpanWrapper(delegate.startManual());
+		public SpanWrapper startManual() {
+			return startSpanWrapper(delegate.start());
 		}
 
 		@Override
