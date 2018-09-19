@@ -1,4 +1,4 @@
-package org.stagemonitor.zipkin;
+package org.stagemonitor.tracing.zipkin;
 
 import org.stagemonitor.configuration.ConfigurationOption;
 import org.stagemonitor.core.StagemonitorPlugin;

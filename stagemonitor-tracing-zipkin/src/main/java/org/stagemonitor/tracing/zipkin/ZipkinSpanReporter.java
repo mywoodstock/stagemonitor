@@ -1,4 +1,4 @@
-package org.stagemonitor.zipkin;
+package org.stagemonitor.tracing.zipkin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +15,16 @@ public class ZipkinSpanReporter extends SpanReporter {
 
 	static final String ZIPKIN_SPAN_LOGGER = "ZipkinSpanReporter";
 	private static final Logger logger = LoggerFactory.getLogger(ZipkinSpanReporter.class);
+	private final Logger spanLogger;
 
 	public ZipkinSpanReporter() {
-		// TODO
+		this(LoggerFactory.getLogger(ZIPKIN_SPAN_LOGGER));
 		logger.info("ZipkinSpanReporter constructed.");
 		System.out.println("ZipkinSpanReporter constructed.");
+	}
+
+	ZipkinSpanReporter(Logger spanLogger) {
+		this.spanLogger = spanLogger;
 	}
 
 	@Override
