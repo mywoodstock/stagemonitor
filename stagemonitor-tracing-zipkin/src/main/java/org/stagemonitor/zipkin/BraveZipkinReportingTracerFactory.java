@@ -51,15 +51,16 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 
 	@Override
 	public boolean isSampled(Span span) {
+		return true;
 		// TODO replace with Span#unwrap once https://github.com/opentracing/opentracing-java/pull/211 is merged
-		if (span instanceof SpanWrapper) {
-			span = ((SpanWrapper) span).getDelegate();
-		}
-		if (span instanceof BraveSpan) {
-			final BraveSpan braveSpan = (BraveSpan) span;
-			return braveSpan.unwrap().context().sampled();
-		}
-		return false;
+		//if (span instanceof SpanWrapper) {
+		//	span = ((SpanWrapper) span).getDelegate();
+		//}
+		//if (span instanceof BraveSpan) {
+		//	final BraveSpan braveSpan = (BraveSpan) span;
+		//	return braveSpan.unwrap().context().sampled();
+		//}
+		//return false;
 	}
 
 	protected AlwaysSampler getSampler() {
