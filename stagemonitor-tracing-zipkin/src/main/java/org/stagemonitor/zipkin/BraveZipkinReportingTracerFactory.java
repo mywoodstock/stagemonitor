@@ -26,7 +26,9 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 		final Tracing braveTracer = Tracing.newBuilder()
 				.traceId128Bit(true)
 				.localServiceName(initArguments.getMeasurementSession().getApplicationName())
-				.spanReporter(getZipkinReporterBuilder(initArguments).build())
+				//.spanReporter(getZipkinReporterBuilder(initArguments).build())
+				.spanReporter(AsyncReporter.create(
+						getSender(initArguments.getPlugin(ZipkinPlugin.class))))
 				//.sampler(getSampler())
 				.sampler(Sampler.ALWAYS_SAMPLE)
 				.build();
