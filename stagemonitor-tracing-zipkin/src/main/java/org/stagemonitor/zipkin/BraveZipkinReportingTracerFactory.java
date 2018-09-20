@@ -2,7 +2,7 @@ package org.stagemonitor.zipkin;
 
 import org.stagemonitor.core.CorePlugin;
 import org.stagemonitor.core.StagemonitorPlugin;
-import org.stagemonitor.tracing.B3HeaderFormat;
+//import org.stagemonitor.tracing.B3HeaderFormat;
 import org.stagemonitor.tracing.TracerFactory;
 import org.stagemonitor.tracing.TracingPlugin;
 import org.stagemonitor.tracing.wrapper.SpanWrapper;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import brave.Tracing;
 import brave.opentracing.BraveSpan;
 import brave.opentracing.BraveTracer;
-import brave.propagation.Propagation;
+//import brave.propagation.Propagation;
 import brave.sampler.Sampler;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
@@ -33,9 +33,10 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 				.sampler(Sampler.ALWAYS_SAMPLE)
 				.build();
 
-		return BraveTracer.newBuilder(braveTracer)
-				.textMapPropagation(B3HeaderFormat.INSTANCE, Propagation.B3_STRING)
-				.build();
+		return BraveTracer.create(braveTracer);
+		//return BraveTracer.newBuilder(braveTracer)
+		//		.textMapPropagation(B3HeaderFormat.INSTANCE, Propagation.B3_STRING)
+		//		.build();
 	}
 
 	@Override
