@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
+import brave.opentracing.BraveSpan;
 import io.opentracing.Scope;
 import io.opentracing.ScopeManager;
 import io.opentracing.Span;
@@ -16,6 +17,7 @@ import io.opentracing.Tracer;
 import io.opentracing.propagation.Format;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 import static org.stagemonitor.tracing.wrapper.SpanWrapper.INTERNAL_TAG_PREFIX;
 
@@ -173,13 +175,22 @@ public class SpanWrappingTracer implements Tracer {
 
 		@Override
 		public Scope startActive(boolean finishSpanOnClose) {
+			finishSpanOnClose = true;
+			Scope parent = scopeManager().active();
+			if (parent != null) {
+				asChildOf(parent.span());
+			}
+			//return scopeManager().activate(delegate.start(), finishSpanOnClose);
 			return scopeManager().activate(startManual(), finishSpanOnClose);
 		}
 
 		@Override
 		@Deprecated
 		public Span startManual() {
-			return startSpanWrapper(delegate.startManual());
+			Span span = startSpanWrapper(delegate.startManual());
+			//Span span = startSpanWrapper(delegate.startManual()).unwrap(BraveSpan.class);
+			System.out.println("START MANUAL SPAN: " + span.toString());
+			return span;
 		}
 
 		@Override

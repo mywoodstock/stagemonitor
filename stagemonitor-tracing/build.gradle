@@ -1,6 +1,14 @@
+repositories {
+	mavenLocal()
+}
+
 dependencies {
 	compile project(":stagemonitor-core")
 	compile "io.opentracing:opentracing-util:$opentracingVersion"
+	compile "io.opentracing:opentracing-api:$opentracingVersion"
+	compile "io.opentracing.brave:brave-opentracing:$braveOpentracingVersion"
+	compile "io.zipkin.reporter2:zipkin-sender-urlconnection:2.7.8"
+	
 	optional "org.elasticsearch:elasticsearch:$esVersion"
 	optional 'javax.ejb:ejb-api:3.0'
 	optional 'org.freemarker:freemarker:2.3.23'

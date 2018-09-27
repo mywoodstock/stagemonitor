@@ -42,6 +42,7 @@ public class RequestMonitor {
 
 	public void monitorStop() {
 		final Scope activeScope = tracingPlugin.getTracer().scopeManager().active();
+		//tracingPlugin.getTracer().
 		if (activeScope != null) {
 			final Span currentSpan = activeScope.span();
 			final SpanContextInformation info = SpanContextInformation.get(currentSpan);

@@ -1,1 +1,2 @@
 org.stagemonitor.tracing.reporter.LoggingSpanReporter
+#org.stagemonitor.tracing.reporter.MyZipkinSpanReporter

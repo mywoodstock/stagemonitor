@@ -1,2 +1,2 @@
 org.stagemonitor.tracing.TracingPlugin
-org.stagemonitor.tracing.soap.SoapTracingPlugin
+#org.stagemonitor.tracing.soap.SoapTracingPlugin

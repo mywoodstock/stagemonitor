@@ -39,7 +39,7 @@ public final class ZipkinPlugin extends StagemonitorPlugin {
 					"'stagemonitor.internal.monitoring' to true.")
 			.tags("reporting", "zipkin")
 			.configurationCategory(ZIPKIN_PLUGIN)
-			.build();
+			.buildRequired();
 
 	@Override
 	public List<Class<? extends StagemonitorPlugin>> dependsOn() {
