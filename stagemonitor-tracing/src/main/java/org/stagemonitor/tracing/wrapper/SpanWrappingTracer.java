@@ -175,7 +175,6 @@ public class SpanWrappingTracer implements Tracer {
 
 		@Override
 		public Scope startActive(boolean finishSpanOnClose) {
-			finishSpanOnClose = true;
 			Scope parent = scopeManager().active();
 			if (parent != null) {
 				asChildOf(parent.span());
@@ -185,7 +184,6 @@ public class SpanWrappingTracer implements Tracer {
 		}
 
 		@Override
-		@Deprecated
 		public Span startManual() {
 			Span span = startSpanWrapper(delegate.startManual());
 			//Span span = startSpanWrapper(delegate.startManual()).unwrap(BraveSpan.class);
