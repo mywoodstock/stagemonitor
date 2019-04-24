@@ -26,6 +26,7 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 	@Override
 	public Tracer getTracer(StagemonitorPlugin.InitArguments initArguments) {
 		final Tracing braveTracer = Tracing.newBuilder()
+				.traceId128Bit(true)
 				.localServiceName(initArguments.getMeasurementSession().getApplicationName())
 				//.reporter(getZipkinReporterBuilder(initArguments).build())
 				.spanReporter(getZipkinReporterBuilder(initArguments).build())
