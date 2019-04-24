@@ -1,6 +1,15 @@
+repositories {
+	mavenLocal()
+	mavenCentral()
+	jcenter()
+}
+
 dependencies {
 	compile project(":stagemonitor-tracing")
 	compile "io.opentracing:opentracing-api:$opentracingVersion"
-	compile "io.opentracing.brave:brave-opentracing:0.20.0"
-	compile "io.zipkin.reporter:zipkin-sender-urlconnection:1.0.2"
+//	compile "io.opentracing.brave:brave-opentracing:0.20.0"
+	compile "io.opentracing.brave:brave-opentracing:0.33.12-WOODSTOCK"
+//	compile "io.zipkin.reporter:zipkin-sender-urlconnection:1.0.2"
+	compile "io.zipkin.reporter2:zipkin-sender-urlconnection:2.7.8"
+	compile "io.zipkin.reporter2:zipkin-reporter:2.8.1"
 }

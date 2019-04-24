@@ -3,10 +3,11 @@ package org.stagemonitor.zipkin;
 import com.codahale.metrics.Gauge;
 
 import org.stagemonitor.core.metrics.metrics2.Metric2Registry;
+import zipkin2.reporter.ReporterMetrics;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import zipkin.reporter.ReporterMetrics;
+//import io.zipkin.reporter2.ReporterMetrics;
 
 import static org.stagemonitor.core.metrics.metrics2.MetricName.name;
 
