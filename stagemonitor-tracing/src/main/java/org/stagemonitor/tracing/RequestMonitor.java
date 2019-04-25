@@ -49,6 +49,7 @@ public class RequestMonitor {
 				long overhead2 = System.nanoTime();
 				trackOverhead(info.getOverhead1(), overhead2);
 			}
+			System.out.println(activeScope.span());
 			activeScope.close();
 		}
 	}

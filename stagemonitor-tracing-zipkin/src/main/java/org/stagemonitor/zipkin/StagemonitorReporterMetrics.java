@@ -7,8 +7,6 @@ import zipkin2.reporter.ReporterMetrics;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//import io.zipkin.reporter2.ReporterMetrics;
-
 import static org.stagemonitor.core.metrics.metrics2.MetricName.name;
 
 public class StagemonitorReporterMetrics implements ReporterMetrics {

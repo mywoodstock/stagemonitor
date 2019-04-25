@@ -29,6 +29,7 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 				.traceId128Bit(true)
 				.localServiceName(initArguments.getMeasurementSession().getApplicationName())
 				//.reporter(getZipkinReporterBuilder(initArguments).build())
+				//.spanReporter(getZipkinReporter(initArguments))
 				.spanReporter(getZipkinReporterBuilder(initArguments).build())
 				.sampler(getSampler())
 				.build();
@@ -52,6 +53,7 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 
 	@Override
 	public boolean isSampled(Span span) {
+		System.out.println(span);
 		// TODO replace with Span#unwrap once https://github.com/opentracing/opentracing-java/pull/211 is merged
 		if (span instanceof SpanWrapper) {
 			span = ((SpanWrapper) span).getDelegate();
@@ -65,6 +67,25 @@ public class BraveZipkinReportingTracerFactory extends TracerFactory {
 
 	protected AlwaysSampler getSampler() {
 		return new AlwaysSampler();
+	}
+
+	protected AsyncReporter getZipkinReporter(StagemonitorPlugin.InitArguments initArguments) {
+		final ZipkinPlugin zipkinPlugin = initArguments.getPlugin(ZipkinPlugin.class);
+		final AsyncReporter.Builder reporterBuilder = AsyncReporter
+																											.builder(getSender(zipkinPlugin))
+																											.messageTimeout(zipkinPlugin.getZipkinFlushInterval(), TimeUnit.MILLISECONDS);
+
+		final Integer zipkinMaxQueuedBytes = zipkinPlugin.getZipkinMaxQueuedBytes();
+		if (zipkinMaxQueuedBytes != null) {
+			reporterBuilder.queuedMaxBytes(zipkinMaxQueuedBytes);
+		}
+		if (initArguments.getPlugin(CorePlugin.class).isInternalMonitoringActive()) {
+			reporterBuilder.metrics(new StagemonitorReporterMetrics(initArguments.getMetricRegistry()));
+		}
+
+		//return reporterBuilder;
+
+		return AsyncReporter.create(getSender(zipkinPlugin));
 	}
 
 	protected AsyncReporter.Builder getZipkinReporterBuilder(StagemonitorPlugin.InitArguments initArguments) {
