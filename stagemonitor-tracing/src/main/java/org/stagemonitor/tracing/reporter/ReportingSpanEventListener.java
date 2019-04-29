@@ -38,6 +38,7 @@ public class ReportingSpanEventListener extends StatelessSpanEventListener {
 
 	@Override
 	public void onFinish(SpanWrapper spanWrapper, String operationName, long durationNanos) {
+		System.out.println("ON FINISH: " + spanWrapper.toString());
 		final SpanContextInformation info = SpanContextInformation.forSpan(spanWrapper);
 		if (tracingPlugin.isSampled(spanWrapper)) {
 			try {
@@ -69,6 +70,7 @@ public class ReportingSpanEventListener extends StatelessSpanEventListener {
 
 	private void doReport(SpanContextInformation spanContext, SpanWrapper spanWrapper) {
 		for (SpanReporter spanReporter : spanReporters) {
+			System.out.println("SPAN REPORTER: " + spanReporter.toString());
 			if (spanReporter.isActive(spanContext)) {
 				try {
 					spanReporter.report(spanContext, spanWrapper);
